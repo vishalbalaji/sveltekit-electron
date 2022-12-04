@@ -1,6 +1,6 @@
 {
-	"name": "test-app",
-	"author": "v33b",
+	"name": "sveltekit-electron",
+	"author": "vishalbalaji",
 	"description": "Test app with Sveltekit(node-adapter) and Electron.js.",
 	"version": "0.0.1",
 	"private": true,
