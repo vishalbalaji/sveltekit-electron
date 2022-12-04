@@ -1,0 +1,5 @@
+{
+	"asar": false,
+	"directories": { "output": "build/electron" },
+	"files": ["electron/electron.cjs", { "from": "build/node", "to": "electron/web" }]
+}

@@ -1,22 +1,38 @@
 {
-	"name": "test",
+	"name": "test-app",
+	"author": "v33b",
+	"description": "Test app with Sveltekit(node-adapter) and Electron.js.",
 	"version": "0.0.1",
 	"private": true,
+	"main": "electron/electron.cjs",
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
+		"dev": "cross-env PORT=5173 concurrently --kill-others -n=svelte,electron -c='#ff3e00',blue 'pnpm dev:svelte' 'electron electron/electron.cjs'",
+		"dev:svelte": "vite dev",
+
+		"build": "pnpm build:svelte && electron-builder --config electron/electron-builder.config.json",
+		"build:svelte": "vite build",
+		"build:electron": "([ ! -d build/node ] && pnpm build:svelte || echo 'Using existing app build') && electron-builder --config electron/electron-builder.config.json",
+
+		"preview": "cross-env PORT=4173 concurrently --kill-others -n=svelte,electron -c='#ff3e00',blue 'pnpm preview:svelte' 'electron electron/electron.cjs'",
+		"preview:svelte": "vite preview",
+
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
 		"@limegrass/eslint-plugin-import-alias": "^1.0.6",
 		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-node": "1.0.0-next.102",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
+		"concurrently": "^7.6.0",
+		"cross-env": "^7.0.3",
+		"electron": "^22.0.0",
+		"electron-builder": "^23.6.0",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
@@ -29,5 +45,8 @@
 		"typescript": "^4.9.3",
 		"vite": "^3.2.4"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"electron-window-state": "^5.0.3"
+	}
 }
