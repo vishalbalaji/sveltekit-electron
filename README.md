@@ -1,38 +1,51 @@
-# create-svelte
+# Electron with Sveltekit
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A minimal [Sveltekit](kit.svelte.dev/) application with <code>[@sveltejs/adapter-node](https://www.npmjs.com/package/@sveltejs/adapter-node)</code> configured with [Electron](https://www.electronjs.org/).
 
-## Creating a project
+## Development
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+The development server can be started with:
 
 ```bash
 npm run dev
+```
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+If you want to just work on the Sveltekit application, then start the server with:
+
+```bash
+npm run dev:svelte
+```
+
+## Preview
+
+You can preview the app with:
+
+```bash
+npm run preview
+```
+
+For just the Sveltekit app, run:
+
+```bash
+npm run preview:svelte
 ```
 
 ## Building
 
-To create a production version of your app:
+To create a final build of the app, run:
 
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+To build just the Sveltekit app, run:
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```bash
+npm run build:svelte
+```
+
+To build just the Electron app, run:
+
+```bash
+npm run build:electron
+```
