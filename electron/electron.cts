@@ -1,14 +1,12 @@
-'use strict';
-
-const { fork } = require('child_process')
-const path = require('path');
-const { app, BrowserWindow } = require('electron');
-const ws = require('electron-window-state');
+import { fork } from 'child_process';
+import path from 'path';
+import { app, BrowserWindow } from 'electron';
+import ws from 'electron-window-state';
 
 const isDev = !app.isPackaged || (process.env.NODE_ENV == 'development');
 
-let mainWindow;
-let apiProcess;
+let mainWindow: BrowserWindow | null;
+let apiProcess: ReturnType<typeof fork>;
 
 if (!isDev) {
 	// For launching node server app.
@@ -18,9 +16,9 @@ if (!isDev) {
 }
 
 const port = process.env.PORT || 5173;
-const appUrl = 'http://localhost:' + port
+const appUrl = 'http://localhost:' + port;
 
-function sleep(ms) {
+function sleep(ms: number) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -50,6 +48,7 @@ function createMainWindow() {
 	mainWindow.once('close', () => { mainWindow = null; });
 
 	mainWindow.webContents.on('did-fail-load', async () => {
+		if (!mainWindow) return;
 		await sleep(500);
 		mainWindow.loadURL(appUrl);
 	});

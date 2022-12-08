@@ -4,16 +4,16 @@
 	"description": "Test app with Sveltekit(node-adapter) and Electron.js.",
 	"version": "0.0.1",
 	"private": true,
-	"main": "electron/electron.cjs",
+	"main": "electron/dist/electron.cjs",
 	"scripts": {
-		"dev": "cross-env PORT=5173 concurrently --kill-others -n=svelte,electron -c='#ff3e00',blue 'pnpm dev:svelte' 'electron electron/electron.cjs'",
+		"dev": "tsc -p electron && cross-env PORT=5173 concurrently --kill-others -n=svelte,electron -c='#ff3e00',blue 'pnpm dev:svelte' 'electron electron/dist/electron.cjs'",
 		"dev:svelte": "vite dev",
 
-		"build": "pnpm build:svelte && electron-builder --config electron/electron-builder.config.json",
+		"build": "pnpm build:svelte && pnpm build:electron",
 		"build:svelte": "vite build",
-		"build:electron": "([ ! -d build/node ] && pnpm build:svelte || echo 'Using existing app build') && electron-builder --config electron/electron-builder.config.json",
+		"build:electron": "([ ! -d build/node ] && pnpm build:svelte || echo 'Using existing app build') && tsc -p electron && electron-builder --config electron/electron-builder.config.json",
 
-		"preview": "cross-env PORT=4173 concurrently --kill-others -n=svelte,electron -c='#ff3e00',blue 'pnpm preview:svelte' 'electron electron/electron.cjs'",
+		"preview": "tsc -p electron && cross-env PORT=4173 concurrently --kill-others -n=svelte,electron -c='#ff3e00',blue 'pnpm preview:svelte' 'electron electron/dist/electron.cjs'",
 		"preview:svelte": "vite preview",
 
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
